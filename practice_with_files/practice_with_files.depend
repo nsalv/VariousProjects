@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1435270735 source:/home/nicholas/sum15-nsalv/practice_with_files/main.cpp
+	<iostream>
+	<fstream>
+
