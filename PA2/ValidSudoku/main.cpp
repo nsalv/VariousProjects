@@ -2,9 +2,7 @@
 #include <fstream>
 #include <iomanip>
 #include <string>
-//FIX THIS CODE
 
-//LOGIC IS WRONG, ALWAYS DISPLAYS valid
 
 using namespace std;
 
@@ -19,7 +17,7 @@ char c[9][9];
 int b=0, counter=1, valid=1;
 
 if (argc < 2) {
-blah.open("sudokugood15.txt");
+blah.open("sudokuboard.txt");
 }
 
 else{blah.open(argv[1]);}
