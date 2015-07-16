@@ -1,7 +1,7 @@
 
 Grading Summary for Nicholas Salvador
 ----------------------------------
-![Nicholas Salvador](Salvador_Nicholas.jpg)
+<img src=Salvador_Nicholas.jpg height="100" alt="Nicholas Salvador">
 
 Homework/In-Class Exercises/Participation
 ---------------------------
