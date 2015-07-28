@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1436469802 source:/home/nicholas/sum15-nsalv/exam1practice/file_adder/main.cpp
+	<iostream>
+	<fstream>
+	<vector>
+

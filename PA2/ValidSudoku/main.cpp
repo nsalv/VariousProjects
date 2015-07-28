@@ -3,7 +3,7 @@
 #include <iomanip>
 #include <string>
 
-
+//logic isn't perfect yet, read sudokubad7.txt as valid.
 using namespace std;
 
 int main(int argc, const char *argv[])

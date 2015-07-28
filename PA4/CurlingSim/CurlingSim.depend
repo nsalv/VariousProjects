@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1437766124 source:/home/nicholas/sum15-nsalv/PA4/CurlingSim/main.cpp
+	<SFML/Graphics.hpp>
+	<vector>
+	<iostream>
+

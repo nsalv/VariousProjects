@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1436471949 source:/home/nicholas/sum15-nsalv/exam1practice/least_common/main.cpp
+	<iostream>
+	<vector>
+	<fstream>
+
