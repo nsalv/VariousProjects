@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1438442832 source:/home/nicholas/sum15-nsalv/Final Project/Start_Screen/main.cpp
+	<SFML/Graphics.hpp>
+	<iostream>
+

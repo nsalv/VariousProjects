@@ -1,15 +1,53 @@
 #include <SFML/Graphics.hpp>
 
+
+class Stone : public sf::CircleShape {
+
+
+public:
+sf::CircleShape s;
+sf::Vector2f velocity;
+Stone (float x, float y)
+{
+    velocity.x = 7;
+    velocity.y = 5;
+    s.setRadius(radius);
+    s.setOrigin(radius,radius);
+    s.setFillColor(sf::Color::Black);
+    s.setPosition(x,y);
+
+}
+
+void bounce(){
+    sf::Vector2f Pos = s.getPosition();
+
+        if (Pos.x >= 970 || Pos.x <=30){
+            velocity.x= -velocity.x;
+        }
+
+        if (Pos.y >=970 || Pos.y <=30){
+            velocity.y = -velocity.y;
+        }
+    s.move(velocity);
+}
+
+
+private:
+float radius = 30.f;
+
+};
+
+
 int main()
 {
     // Create the main window
     sf::RenderWindow window(sf::VideoMode(1000, 1000), "SFML window");
     sf::RectangleShape background(sf::Vector2f(1000,1000));
-    sf::CircleShape stone(30.f);
+
+    sf::CircleShape blah(30.f);
+    Stone stone(470.f,470.f);
 
     background.setFillColor(sf::Color::White);
-    stone.setFillColor(sf::Color::Black);
-    stone.setOrigin(30,30);
 
 
 	// Start the game loop
@@ -24,10 +62,12 @@ int main()
                 window.close();
         }
 
+        stone.bounce();
+
         // Clear screen
         window.clear();
         window.draw(background);
-        window.draw(stone);
+        window.draw(stone.s);
 
 
         // Update the window

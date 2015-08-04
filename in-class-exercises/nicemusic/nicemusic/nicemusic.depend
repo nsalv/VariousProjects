@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1438186136 source:/home/nicholas/sum15-nsalv/in-class-exercises/nicemusic/nicemusic/main.cpp
+	<SFML/Audio.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/System.hpp>
+	<iostream>
+
