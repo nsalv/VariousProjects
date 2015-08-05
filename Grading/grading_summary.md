@@ -6,10 +6,13 @@ Grading Summary for Nicholas Salvador
 Homework/In-Class Exercises/Participation
 ---------------------------
 
-not yet evaluated
+somewhat light on in-class exercise, but
+good participation in class generally
 
 Programming Assignments
 -----------------------
+
+very good.
 
 Exams
 -----
@@ -27,7 +30,17 @@ Midterm One:
 Project
 -------
 
+Brick Breaker. Excellent work. Good game play, very few bugs.
+Good code design (and excellent team debates and thought)
+
 Final Grade
 -----------
 
+Your current letter grade is B+.
 
+If you are satisfied with that grade, you need not 
+complete the final exam. Excellent work on the final exam 
+could raise your grade, but not lower it.
+
+Also, if you want to do work on the programming assignments 
+between now and Thursday, I will consider a bump up to A-.
