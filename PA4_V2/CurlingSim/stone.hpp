@@ -34,6 +34,7 @@ void bounce(){
 void bounceStone(std::vector<Stone>& stones){
     sf::Vector2f loc = s.getPosition();
     sf::Vector2f stonePos;
+    bool collide = 0;
     std::vector<sf::Vector2f> Pos;
     for (int i=0; i<stones.size(); i++){
         stonePos = stones[i].s.getPosition();
@@ -49,22 +50,15 @@ void bounceStone(std::vector<Stone>& stones){
     float d = sqrt(pow((loc.x-Pos[i].x),2)+pow((loc.y-Pos[i].y),2));
         if (d<=80 && loc!=Pos[i]){
 
-            sf::Vector2f n = (loc-Pos[i]);
-            float unitnx = n.x/d;
-            float unitny = n.y/d;
-            float a1 = velocity.x*unitnx+velocity.y*unitny;
-            float a2 = stones[i].velocity.x*unitnx+stones[i].velocity.y*unitny;
-            float optP = (2.0*(a1-a2)/20);
-            velocity.x = velocity.x - optP*10*unitnx;
-            velocity.y = velocity.y - optP*10*unitny;
-            stones[i].velocity.x = stones[i].velocity.x+optP*10*unitnx;
-            stones[i].velocity.y = stones[i].velocity.y+optP*10*unitnx;
+            float newVelX1 = stones[i].velocity.x;
+            float newVelY1 = stones[i].velocity.y;
+            float newVelX2 = velocity.x;
+            float newVelY2 = velocity.y;
 
-//            sf::Vector2f temp = velocity;
-//
-//            velocity = stones[i].velocity; //sf::Vector2f(10,10);
-//            stones[i].velocity = temp;
-
+            stones[i].velocity.x = newVelX2;
+            stones[i].velocity.y = newVelY2;
+            velocity.x = newVelX1;
+            velocity.y = newVelY1;
         }
     }
 }

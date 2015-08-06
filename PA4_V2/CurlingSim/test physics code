@@ -73,3 +73,25 @@
 //            stones[l].velocity.x = magpVel*sin(theta);
 //            stones[p].velocity.y = stones[l].velocity.y;
 //            stones[l].velocity.y = temp;
+
+//            sf::Vector2f n = (loc-Pos[i]);
+//            float unitnx = n.x/d;
+//            float unitny = n.y/d;
+//            float a1 = velocity.x*unitnx+velocity.y*unitny;
+//            float a2 = stones[i].velocity.x*unitnx+stones[i].velocity.y*unitny;
+//            float optP = (2.0*(a1-a2)/20);
+//            velocity.x = velocity.x - optP*10*unitnx;
+//            velocity.y = velocity.y - optP*10*unitny;
+//            stones[i].velocity.x = stones[i].velocity.x+optP*10*unitnx;
+//            stones[i].velocity.y = stones[i].velocity.y+optP*10*unitnx;
+
+//REAL CODE THAT WORKS
+float newVelX1 = stones[i].velocity.x
+            float newVelY1 = stones[i].velocity.y
+            float newVelX2 = 2*10*velocity.x/20;
+            float newVelY2 = 2*10*velocity.y/20;
+
+            stones[i].velocity.x = newVelX2;
+            stones[i].velocity.y = newVelY2;
+            velocity.x = newVelX1;
+            velocity.y = newVelY1;
