@@ -1,0 +1,75 @@
+
+//            float dot = Pos[l].x*Pos[p].x + Pos[l].y*Pos[p].y;
+//            float magpPos = sqrt(pow(Pos[p].x,2)+pow(Pos[p].y,2));
+//            float maglPos = sqrt(pow(Pos[l].x,2)+pow(Pos[l].y,2));
+//            float theta = dot/(magpPos*maglPos);
+
+//            float magpVel = sqrt(pow(stones[p].velocity.x,2)+pow(stones[p].velocity.y,2));
+//            float maglVel = sqrt(pow(stones[l].velocity.x,2)+pow(stones[l].velocity.y,2));
+
+
+
+//            sf::Vector2f sub = (Pos[p]-Pos[l]);
+//            //distance between stones
+//            float subMag = sqrt(pow(sub.x,2)+pow(sub.y,2));
+//            //dot product for velocities of stones parallel to distance between stones
+//            float pV1 = (sub.x*stones[p].velocity.x + sub.y*stones[p].velocity.y);
+//            float pV2 = (sub.x*stones[l].velocity.x + sub.y*stones[l].velocity.y);
+//            //vector addition to determine normal vectors
+//            float nV1 = subMag - pV1;
+//            float nV2 = subMag - pV2;
+//
+
+//TEST CODE
+            double atan = atan2(Pos[p].y - Pos[l].y, Pos[p].x - Pos[l].x);
+
+            // velocity and direction in normal coordinate system
+            float magpVel = sqrt(pow(stones[p].velocity.x,2)+pow(stones[p].velocity.y,2));
+            float maglVel = sqrt(pow(stones[l].velocity.x,2)+pow(stones[l].velocity.y,2));
+            double dirP = atan2(stones[p].velocity.y, stones[p].velocity.x);
+            double dirL = atan2(stones[l].velocity.y, stones[l].velocity.x);
+
+            //cout << dirBall;
+            // convert velocity to temp coordinate system
+            double xVelPTemp = stones[p].velocity.x * cos(magpVel - atan);
+            double yVelPTemp = stones[p].velocity.y * sin(magpVel - atan);
+            double xVelLTemp = stones[l].velocity.x * cos(maglVel - atan);
+            double yVelLTemp = stones[l].velocity.y * sin(maglVel - atan);
+
+            //cout << xVelBallTempPre;
+            // collision in temp coordinate system
+            // (only xSpeed due to 1 dimensional collision)
+            double xVelPTempPost = ((0) * xVelPTemp + (10 * 2) * xVelLTemp) / (20);
+            double yVelPTempPost = ((0) * yVelPTemp + (10 * 2) * yVelLTemp) / (20);
+            double xVelLTempPost = ((0) * xVelLTemp + (10 * 2) * xVelPTemp) / (20);
+            double yVelLTempPost = ((0) * yVelLTemp + (10 * 2) * yVelPTemp) / (20);
+
+            //cout << xVelBallTempPost;
+            // convert collision to normal coordinate system
+            double xSpeedLTemp = cos(atan * xVelLTempPost) + cos(atan + PI / 2) * yVelLTempPost;
+            double ySpeedLTemp = sin(atan * xVelLTempPost) + sin(atan + PI / 2) * yVelLTempPost;
+            stones[l].velocity.x = xSpeedLTemp;
+            stones[l].velocity.y = ySpeedLTemp;
+
+            double xSpeedPTemp = cos(atan * xVelPTempPost) + cos(atan + PI / 2) * yVelPTempPost;
+            double ySpeedPTemp = sin(atan * xVelPTempPost) + sin(atan + PI / 2) * yVelPTempPost;
+            stones[p].velocity.x = xSpeedPTemp;
+            stones[p].velocity.y = ySpeedPTemp;
+
+//            float phi = 90-theta;
+//            float ang = atan(nV2/pV1); //could be wrong.
+//            float alpha = ang - phi;
+//
+//            float VF1 = sqrt(pow(pV1,2)+pow(nV2,2));
+//            stones[p].velocity.x = VF1*cos(theta);
+//            stones[p].velocity.y = VF1*sin(theta);
+
+            //float VF2 = maglVel + magpVel - VF1;
+//            stones[l].velocity.x = (VF2*cos(theta));
+//            stones[l].velocity.y = (VF2*sin(theta));
+//
+//            float temp = stones[p].velocity.y;
+//            stones[p].velocity.x = magpVel*cos(theta);
+//            stones[l].velocity.x = magpVel*sin(theta);
+//            stones[p].velocity.y = stones[l].velocity.y;
+//            stones[l].velocity.y = temp;

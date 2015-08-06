@@ -39,7 +39,7 @@ BankAccount (double bal, double inter, int Id)
     balance = bal;
     interest = inter;
     BankId = Id;
-    time=0;
+    time = 0;
 
     if (balance>0){
         //for calculation of bank profits
@@ -62,37 +62,23 @@ void moveTime(int days){
 void setRate(double dailyrate){
     interest = dailyrate;
 }
-//Having trouble accessing bank information to determine if profit is great enough
-//for withdrawal.
-bool withdraw(double amount){
-    if(open){
-        if(amount>balance){
-            return false;
-        }
-        if(balance>amount){
-            balance-=amount;
-            return true;
-        }
-    }
-    else if (!open){
-        return false;
-    }
-}
+
 void makeDeposit(double amount){
     balance+=amount;
 }
 double close(){
-    return balance;
     open = false;
+    return balance;
 }
 int getBankId(){
     return BankId;
 }
 void transferTo(BankAccount destination, double money){
     balance-=money;
-    destination.balance+=money;
+    destination.balance += money;
 }
-
+//define function after bank vector has been declared
+bool withdraw(double amount);
 
 private:
 
@@ -103,6 +89,7 @@ public:
     int BankId;
     double profitBank;
     vector<BankAccount> BankAccounts;
+
 
 Bank(){
     BankId=numBanks;
@@ -148,29 +135,69 @@ int numBanks=0;
 
 
 };
+vector<Bank> Banks;
 
+bool BankAccount::withdraw(double amount){
+    if(open){
+        if(amount>balance || Banks[BankId].profitBank<amount){
+            return false;
+        }
+        if(balance>amount && Banks[BankId].profitBank>amount){
+            balance-=amount;
+            return true;
+        }
+    }
+    else if (!open){
+        return false;
+    }
+}
 
 
 int main()
 {
     Bank citizen, BoA;
-    BankAccount Checking(1000, .02, BoA.getBankId());
+    Banks.push_back(citizen);
+    Banks.push_back(BoA);
+
+    BankAccount Checking(4000, .02, BoA.getBankId());
+    //Is adding interest before moveTime function...
+    cout<<"Initial Checking balance: "<<Checking.getBalance()<<endl;
+
     BoA.Account(Checking);
     Checking.moveTime(20);
-    cout<<Checking.getBalance()<<endl;
-    cout<<BoA.getProfit()<<endl;
+    cout<<"BoA earnings after 20 days: "<<BoA.getProfit()<<endl;
+
+    //cannot withdraw money unless Bank can cover it.
+    cout<<"Attempt to withdraw 500 dollars from Checking: ";
+    if (!Checking.withdraw(500)){
+        cout<<"failed."<<endl;
+    }
+    else if (Checking.withdraw(500)){
+        cout<<" success."<<endl;
+    }
     BoA.printBankAccounts();
-    cout<<Checking.withdraw(1000)<<endl;
+
     cout<<"Checking Balance: "<<Checking.getBalance()<<endl;
     BankAccount Loan(-2000, .1, citizen.getBankId());
     Checking.transferTo(Loan, 1000);
+
+    //Money isn't being added to Loan for some reason.
     cout<<"New Checking Balance: "<<Checking.getBalance()<<" New Loan Balance: "<<Loan.getBalance()<<endl;
 
+
+    cout<<"Closed Checking Account. Money in account: "<<Checking.close()<<endl;
+    //Withdraw will not function with a closed account
+    cout<<Checking.withdraw(1000)<<endl;
+
     citizen.Account(Loan);
+
+    citizen.printBankAccounts();
     Loan.moveTime(30);
-    cout<<Loan.getBalance()<<endl;
-    cout<<citizen.getProfit()<<endl;
-    cout<<citizen.getBankId()<<endl;
+    cout<<"Loan Balance after 30 days: "<<Loan.getBalance()<<endl;
+    cout<<"Citizen bank's profit after 30 days: "<<citizen.getProfit()<<endl;
+    cout<<"Citizen Bank Id: "<<citizen.getBankId()<<endl;
+
+
 
     return 0;
 }

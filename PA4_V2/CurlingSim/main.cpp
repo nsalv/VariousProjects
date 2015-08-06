@@ -4,76 +4,60 @@
 #include <iostream>
 #include <cmath>
 
-//Need to work on physics between stones.
-//Make function for each individual scenario
+//fix the trig for collisions
+//make sure that when stones are randomly generated they don't overlap.
 
-void bounceStone(std::vector<Stone>& stones){
-    sf::Vector2f stonePos;
-    std::vector<sf::Vector2f> Pos;
-
-    for (int i=0; i<stones.size(); i++){
-        stonePos = stones[i].s.getPosition();
-        Pos.push_back(stonePos);
-    }
-
-    //comparing x and y positions of each stone
-    for (int p=0; p<Pos.size(); p++){
-        for (int l=0; l<Pos.size(); l++){
-
-        if (l==p){
-        continue;
-        }
-
-        //determines the distance between the x and y coordinates of each stone
-        int d = sqrt(pow((Pos[l].x-Pos[p].x),2)+pow((Pos[l].y-Pos[p].y),2));
-
-        //when the two stones collide the stones shoot off the screen and reset.
-        //something is very wrong with the trig....
-        if (d<=80){
-
-            float dot = Pos[l].x*Pos[p].x + Pos[l].y*Pos[p].y;
-            float magpPos = sqrt(pow(Pos[p].x,2)+pow(Pos[p].y,2));
-            float maglPos = sqrt(pow(Pos[l].x,2)+pow(Pos[l].y,2));
-            float theta = dot/(magpPos*maglPos);
-
-            float magpVel = sqrt(pow(stones[p].velocity.x,2)+pow(stones[p].velocity.y,2));
-            float maglVel = sqrt(pow(stones[l].velocity.x,2)+pow(stones[l].velocity.y,2));
-
-
-
-            sf::Vector2f sub = (Pos[p]-Pos[l]);
-            //distance between stones
-            float subMag = sqrt(pow(sub.x,2)+pow(sub.y,2));
-            //dot product for velocities of stones parallel to distance between stones
-            float pV1 = (sub.x*stones[p].velocity.x + sub.y*stones[p].velocity.y);
-            float pV2 = (sub.x*stones[l].velocity.x + sub.y*stones[l].velocity.y);
-            //vector addition to determine normal vectors
-            float nV1 = subMag - pV1;
-            float nV2 = subMag - pV2;
-
-            float phi = 90-theta;
-            float ang = atan(nV2/pV1); //could be wrong.
-            float alpha = ang - phi;
-
-            float VF1 = sqrt(pow(pV1,2)+pow(nV2,2));
-            stones[p].velocity.x = VF1*cos(theta);
-            stones[p].velocity.y = VF1*sin(theta);
-
-            float VF2 = maglVel + magpVel - VF1;
-            stones[l].velocity.x = (VF2*cos(theta));
-            stones[l].velocity.y = (VF2*sin(theta));
+//void bounceStone(std::vector<Stone>& stones){
+//    sf::Vector2f stonePos;
+//    std::vector<sf::Vector2f> Pos;
+//    for (int i=0; i<stones.size(); i++){
+//        stonePos = stones[i].s.getPosition();
+//        Pos.push_back(stonePos);
+//    }
 //
-//            temp = stones[p].velocity.y;
-//            stones[p].velocity.x = magpVel*cos(theta);
-//            stones[l].velocity.x = magpVel*sin(theta);
-//            stones[p].velocity.y = stones[l].velocity.y;
-//            stones[l].velocity.y = temp;
-
-        }
-        }
-    }
-
-}
+//    //comparing x and y positions of each stone
+//    for (int p=0; p<Pos.size(); p++){
+//        for (int l=0; l<Pos.size(); l++){
+//
+//        if (p==l){
+//            continue;
+//        }
+//
+//        //determines the distance between the x and y coordinates of each stone
+//        float d = sqrt(pow((Pos[l].x-Pos[p].x),2)+pow((Pos[l].y-Pos[p].y),2));
+//
+//        if (d<=80){
+//
+////            stones[p].s.setFillColor(sf::Color::Yellow);
+////            stones[l].s.setFillColor(sf::Color::Green);
+//
+//            sf::Vector2f n = (Pos[p]-Pos[l]);
+//            float unitnx = n.x/d;
+//            float unitny = n.y/d;
+//            float a1 = stones[p].velocity.x*unitnx+stones[p].velocity.y*unitny;
+//            float a2 = stones[l].velocity.x*unitnx+stones[l].velocity.y*unitny;
+//            float optP = (2.0*(a1-a2)/20);
+//
+//            sf::Vector2f temp = stones[l].velocity;
+//
+//            stones[l].velocity = stones[l].velocity; //sf::Vector2f(10,10);
+//            stones[p].velocity = stones[p].velocity;
+//
+//            std::cout<<"P:"<<stones[p].velocity.x<<" "<<stones[p].velocity.y<<std::endl;
+//            std::cout<<"L:"<<stones[l].velocity.x<<" "<<stones[l].velocity.y<<std::endl;
+//
+//
+//
+//
+//
+//        }
+//        }
+//    }
+//
+////    for (int j=0; j<stones.size(); j++){
+////        stones[j].s.setFillColor(sf::Color::Black);
+////    }
+//}
 std::vector<Stone> test(bool& collide, bool& rep) {
 
     std::vector<Stone> stones;
@@ -92,10 +76,10 @@ std::vector<Stone> random(bool& collide, bool& rep){
 
 std::vector<Stone> stones;
     for (int i=0; i<10; i++){
-        float a = rand() % 970;
-        float b = rand() % 970;
-        float x = rand() % 5;
-        float y = rand() % 5;
+        float a = rand() % 930 + 35;
+        float b = rand() % 930 + 35;
+        float x = rand() % 20 + -10;
+        float y = rand() % 20 + -10;
         stones.push_back(Stone(x,y,a,b));
     }
 collide = false;
@@ -107,10 +91,10 @@ std::vector<Stone> bounce(bool& collide, bool& rep){
 
 std::vector<Stone> stones;
     for (int i=0; i<10; i++){
-        float a = rand() % 970;
-        float b = rand() % 970;
-        float x = rand() % 5;
-        float y = rand() % 5;
+        float a = rand() % 930 + 35;
+        float b = rand() % 930 + 35;
+        float x = rand() % 20 + -10;
+        float y = rand() % 20 + -10;
         stones.push_back(Stone(x,y,a,b));
     }
 collide = true;
@@ -124,18 +108,18 @@ void replace(std::vector<Stone>& stones){
         Pos = stones[i].s.getPosition();
         if (Pos.x > 990 || Pos.x < -10){
             stones.erase(stones.begin() + i);
-            float a = rand() % 970;
-            float b = rand() % 970;
-            float x = rand() % 5;
-            float y = rand() % 5;
+            float a = rand() % 930 + 35;
+            float b = rand() % 930 + 35;
+            float x = rand() % 20 + -10;
+            float y = rand() % 20 + -10;
             stones.push_back(Stone(x,y,a,b));
         }
         if (Pos.y > 990 || Pos.y < -10){
             stones.erase(stones.begin() + i);
-            float a = rand() % 970;
-            float b = rand() % 970;
-            float x = rand() % 5;
-            float y = rand() % 5;
+            float a = rand() % 930 + 35;
+            float b = rand() % 930 + 35;
+            float x = rand() % 20 + -10;
+            float y = rand() % 20 + -10;
             stones.push_back(Stone(x,y,a,b));
         }
     }
@@ -151,7 +135,7 @@ int main()
 
     sf::RectangleShape background;
     background.setSize(sf::Vector2f(1000,1000));
-    //std::vector<Stone> stones(1,Stone(3,5,60,60));
+
 
     sf::CircleShape shape(500.f);
     sf::CircleShape target(375.f);
@@ -191,10 +175,10 @@ int main()
         }
     for (int i=0; i<stones.size(); i++){
         stones[i].move();
+        stones[i].bounceStone(stones);
         if (collide)
         stones[i].bounce();
     }
-        bounceStone(stones);
         replace(stones);
 
         window.clear();
