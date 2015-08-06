@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1438890524 source:/home/nicholas/sum15-nsalv/Final_Exam/final_bank/main.cpp
+	<iostream>
+	<cmath>
+	<vector>
+
